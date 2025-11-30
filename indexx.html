@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahmoud's Portfolio - Frontend Developer & UI Designer</title>
+    <meta name="description" content="Professional portfolio of Mahmoud - Creative frontend developer specializing in responsive web design, UI/UX, and modern web applications." />
+    <meta name="author" content="Mahmoud" />
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        border: "hsl(240 6% 90%)",
+                        input: "hsl(240 6% 90%)",
+                        ring: "hsl(262 83% 58%)",
+                        background: "hsl(0 0% 100%)",
+                        foreground: "hsl(240 10% 15%)",
+                        primary: {
+                            DEFAULT: "hsl(262 83% 58%)",
+                            foreground: "hsl(0 0% 100%)",
+                        },
+                        secondary: {
+                            DEFAULT: "hsl(240 5% 96%)",
+                            foreground: "hsl(240 10% 15%)",
+                        },
+                        destructive: {
+                            DEFAULT: "hsl(0 84% 60%)",
+                            foreground: "hsl(0 0% 100%)",
+                        },
+                        muted: {
+                            DEFAULT: "hsl(240 5% 96%)",
+                            foreground: "hsl(240 4% 46%)",
+                        },
+                        accent: {
+                            DEFAULT: "hsl(262 83% 58%)",
+                            foreground: "hsl(0 0% 100%)",
+                        },
+                        popover: {
+                            DEFAULT: "hsl(0 0% 100%)",
+                            foreground: "hsl(240 10% 15%)",
+                        },
+                        card: {
+                            DEFAULT: "hsl(0 0% 100%)",
+                            foreground: "hsl(240 10% 15%)",
+                        },
+                    },
+                    borderRadius: {
+                        lg: "0.75rem",
+                        md: "calc(0.75rem - 2px)",
+                        sm: "calc(0.75rem - 4px)",
+                    },
+                    keyframes: {
+                        "fade-in": {
+                            "0%": {
+                                opacity: "0",
+                                transform: "translateY(20px)",
+                            },
+                            "100%": {
+                                opacity: "1",
+                                transform: "translateY(0)",
+                            },
+                        },
+                        "fade-in-up": {
+                            "0%": {
+                                opacity: "0",
+                                transform: "translateY(30px)",
+                            },
+                            "100%": {
+                                opacity: "1",
+                                transform: "translateY(0)",
+                            },
+                        },
+                        "float": {
+                            "0%, 100%": {
+                                transform: "translateY(0px)",
+                            },
+                            "50%": {
+                                transform: "translateY(-20px)",
+                            },
+                        },
+                    },
+                    animation: {
+                        "fade-in": "fade-in 0.6s ease-out",
+                        "fade-in-up": "fade-in-up 0.8s ease-out",
+                        "float": "float 3s ease-in-out infinite",
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .gradient-primary {
+            background: linear-gradient(135deg, hsl(262 83% 58%) 0%, hsl(245 58% 51%) 100%);
+        }
+        
+        .gradient-hero {
+            background: linear-gradient(135deg, hsl(262 83% 58%) 0%, hsl(245 58% 51%) 50%, hsl(217 91% 60%) 100%);
+        }
+        
+        .gradient-dark {
+            background: linear-gradient(180deg, hsl(240 20% 8%) 0%, hsl(262 40% 12%) 100%);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, hsl(262 83% 58%) 0%, hsl(245 58% 51%) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glow-primary {
+            box-shadow: 0 0 40px hsl(262 83% 58% / 0.3);
+        }
+        
+        .glow-accent {
+            box-shadow: 0 0 60px hsl(217 91% 60% / 0.4);
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: hsl(0 0% 100%);
+            color: hsl(240 10% 15%);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background/80 backdrop-blur-md border-b border-border shadow-lg" id="header">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <h1 class="text-2xl font-bold text-gradient cursor-pointer" onclick="scrollToSection('home')">
+                    Mahmoud's Portfolio
+                </h1>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <button onclick="scrollToSection('home')" class="text-foreground hover:text-primary transition-colors duration-300 font-medium">
+                        Home
+                    </button>
+                    <button onclick="scrollToSection('about')" class="text-foreground hover:text-primary transition-colors duration-300 font-medium">
+                        About
+                    </button>
+                    <button onclick="scrollToSection('contact')" class="text-foreground hover:text-primary transition-colors duration-300 font-medium">
+                        Contact
+                    </button>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-foreground" onclick="toggleMobileMenu()" id="mobileMenuBtn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <nav class="md:hidden mt-4 flex flex-col gap-4 py-4 border-t border-border animate-fade-in hidden" id="mobileMenu">
+                <button onclick="scrollToSection('home')" class="text-foreground hover:text-primary transition-colors duration-300 font-medium text-left">
+                    Home
+                </button>
+                <button onclick="scrollToSection('about')" class="text-foreground hover:text-primary transition-colors duration-300 font-medium text-left">
+                    About
+                </button>
+                <button onclick="scrollToSection('contact')" class="text-foreground hover:text-primary transition-colors duration-300 font-medium text-left">
+                    Contact
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center gradient-dark relative overflow-hidden">
+        <!-- Animated background elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute w-96 h-96 bg-primary/20 rounded-full blur-3xl -top-48 -left-48 animate-float"></div>
+            <div class="absolute w-96 h-96 bg-accent/20 rounded-full blur-3xl -bottom-48 -right-48 animate-float" style="animation-delay: 1s;"></div>
+        </div>
+
+        <div class="container mx-auto px-6 py-20 relative z-10">
+            <div class="flex flex-col items-center text-center space-y-8 animate-fade-in-up">
+                <!-- Profile Image -->
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-gradient-primary rounded-full blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-300 glow-accent"></div>
+                    <div class="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-primary/50 shadow-2xl transform group-hover:scale-105 transition-transform duration-300">
+                        <img src="src/assets/mahmoud-profile.jpg" alt="Mahmoud" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="w-full h-full bg-gradient-primary flex items-center justify-center text-white text-6xl font-bold" style="display: none;">M</div>
+                    </div>
+                </div>
+
+                <!-- Hero Content -->
+                <div class="space-y-4 max-w-3xl">
+                    <h1 class="text-5xl md:text-7xl font-bold text-white leading-tight">
+                        Welcome to My Portfolio
+                    </h1>
+                    <p class="text-xl md:text-2xl text-white/80 font-light">
+                        Hi, I'm <span class="text-gradient font-semibold">Mahmoud</span>
+                    </p>
+                    <p class="text-lg md:text-xl text-white/70 max-w-2xl mx-auto">
+                        Frontend Developer crafting beautiful, responsive web experiences with modern technologies
+                    </p>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <button onclick="scrollToSection('contact')" class="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 transform hover:scale-105">
+                        Get In Touch
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div class="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2">
+                <div class="w-1.5 h-3 bg-white/60 rounded-full"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-background">
+        <div class="container mx-auto px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 animate-fade-in">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                        About <span class="text-gradient">Me</span>
+                    </h2>
+                    <div class="w-24 h-1 bg-gradient-primary mx-auto rounded-full"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 mb-16">
+                    <div class="space-y-6 animate-fade-in-up">
+                        <p class="text-lg text-foreground/80 leading-relaxed">
+                            I'm a passionate frontend developer dedicated to crafting beautiful, responsive, and 
+                            user-friendly web interfaces. My focus is on creating seamless digital experiences 
+                            that combine stunning visual design with exceptional usability.
+                        </p>
+                        <p class="text-lg text-foreground/80 leading-relaxed">
+                            With expertise in modern frontend technologies and frameworks, I specialize in 
+                            building pixel-perfect, performant web applications. I love transforming creative 
+                            designs into interactive experiences that users enjoy.
+                        </p>
+                        <p class="text-lg text-foreground/80 leading-relaxed">
+                            When I'm not coding, you'll find me exploring the latest CSS techniques, 
+                            experimenting with new JavaScript frameworks, and staying current with 
+                            design trends and web standards.
+                        </p>
+                    </div>
+
+                    <div class="space-y-6 animate-fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="bg-card border border-border rounded-xl p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                            <h3 class="text-2xl font-semibold text-gradient mb-3">Frontend Skills</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium hover:bg-primary/20 transition-colors">React</span>
+                                <span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium hover:bg-primary/20 transition-colors">TypeScript</span>
+                                <span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium hover:bg-primary/20 transition-colors">JavaScript</span>
+                                <span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium hover:bg-primary/20 transition-colors">HTML5</span>
+                                <span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium hover:bg-primary/20 transition-colors">CSS3</span>
+                                <span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium hover:bg-primary/20 transition-colors">Tailwind CSS</span>
+                                <span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium hover:bg-primary/20 transition-colors">SASS</span>
+                                <span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium hover:bg-primary/20 transition-colors">Responsive Design</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-card border border-border rounded-xl p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                            <h3 class="text-2xl font-semibold text-gradient mb-3">What I Do</h3>
+                            <ul class="space-y-2 text-foreground/80">
+                                <li class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                    Responsive Web Design
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                    Interactive UI Components
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                    CSS Animations & Effects
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                    Frontend Performance Optimization
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-card border border-border rounded-xl p-6 text-center hover:shadow-xl hover:border-primary/50 transition-all duration-300 transform hover:scale-105 animate-fade-in-up">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
+                            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Frontend Development</h3>
+                        <p class="text-sm text-foreground/70">Building responsive and performant user interfaces with modern frameworks</p>
+                    </div>
+
+                    <div class="bg-card border border-border rounded-xl p-6 text-center hover:shadow-xl hover:border-primary/50 transition-all duration-300 transform hover:scale-105 animate-fade-in-up" style="animation-delay: 0.1s;">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
+                            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">UI/UX Design</h3>
+                        <p class="text-sm text-foreground/70">Creating beautiful and intuitive designs that provide excellent user experiences</p>
+                    </div>
+
+                    <div class="bg-card border border-border rounded-xl p-6 text-center hover:shadow-xl hover:border-primary/50 transition-all duration-300 transform hover:scale-105 animate-fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
+                            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Web Animation</h3>
+                        <p class="text-sm text-foreground/70">Bringing interfaces to life with smooth, engaging animations and transitions</p>
+                    </div>
+
+                    <div class="bg-card border border-border rounded-xl p-6 text-center hover:shadow-xl hover:border-primary/50 transition-all duration-300 transform hover:scale-105 animate-fade-in-up" style="animation-delay: 0.3s;">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
+                            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Best Practices</h3>
+                        <p class="text-sm text-foreground/70">Writing clean, accessible, and maintainable code following industry standards</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 gradient-dark relative overflow-hidden">
+        <!-- Background decoration -->
+        <div class="absolute inset-0 overflow-hidden opacity-30">
+            <div class="absolute w-96 h-96 bg-primary/20 rounded-full blur-3xl top-0 right-0"></div>
+            <div class="absolute w-96 h-96 bg-accent/20 rounded-full blur-3xl bottom-0 left-0"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 animate-fade-in">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">
+                        Get In <span class="text-gradient">Touch</span>
+                    </h2>
+                    <div class="w-24 h-1 bg-gradient-primary mx-auto rounded-full mb-6"></div>
+                    <p class="text-lg text-white/70 max-w-2xl mx-auto">
+                        Have a project in mind or just want to chat? Feel free to reach out for collaborations or just a friendly conversation!
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12">
+                    <!-- Contact Info -->
+                    <div class="space-y-8 animate-fade-in-up">
+                        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-8">
+                            <h3 class="text-2xl font-bold text-white mb-6">Contact Information</h3>
+                            
+                            <div class="space-y-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-semibold mb-1">Email</h4>
+                                        <p class="text-white/70">mahmoud@example.com</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-semibold mb-1">Phone</h4>
+                                        <p class="text-white/70">+1 (555) 123-4567</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-semibold mb-1">Location</h4>
+                                        <p class="text-white/70">Available for remote work worldwide</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 pt-8 border-t border-white/10">
+                                <h4 class="text-white font-semibold mb-4">Follow Me</h4>
+                                <div class="flex gap-4">
+                                    <button class="w-10 h-10 bg-white/10 hover:bg-primary/30 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110" aria-label="GitHub">
+                                        <span class="text-white text-xs font-bold">G</span>
+                                    </button>
+                                    <button class="w-10 h-10 bg-white/10 hover:bg-primary/30 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110" aria-label="LinkedIn">
+                                        <span class="text-white text-xs font-bold">L</span>
+                                    </button>
+                                    <button class="w-10 h-10 bg-white/10 hover:bg-primary/30 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110" aria-label="Twitter">
+                                        <span class="text-white text-xs font-bold">T</span>
+                                    </button>
+                                    <button class="w-10 h-10 bg-white/10 hover:bg-primary/30 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110" aria-label="Instagram">
+                                        <span class="text-white text-xs font-bold">I</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="animate-fade-in-up" style="animation-delay: 0.2s;">
+                        <form onsubmit="handleFormSubmit(event)" class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-8">
+                            <h3 class="text-2xl font-bold text-white mb-6">Send a Message</h3>
+                            
+                            <div class="space-y-6">
+                                <div>
+                                    <label for="name" class="block text-white/80 font-medium mb-2">
+                                        Your Name
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                                        placeholder="John Doe"
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label for="email" class="block text-white/80 font-medium mb-2">
+                                        Your Email
+                                    </label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                                        placeholder="john@example.com"
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label for="message" class="block text-white/80 font-medium mb-2">
+                                        Your Message
+                                    </label>
+                                    <textarea
+                                        id="message"
+                                        name="message"
+                                        rows="5"
+                                        class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
+                                        placeholder="Tell me about your project..."
+                                        required
+                                    ></textarea>
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    class="w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+                                >
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                                        <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
+                                    </svg>
+                                    Send Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-background border-t border-border py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-2 text-foreground/70">
+                    <span>© 2025 Mahmoud's Portfolio. All rights reserved.</span>
+                </div>
+
+                <div class="flex items-center gap-2 text-foreground/70">
+                    <span>Made with</span>
+                    <svg class="w-4 h-4 text-primary fill-primary animate-pulse" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                    </svg>
+                    <span>by mahmoud :)</span>
+                </div>
+
+                <div class="flex gap-6">
+                    <a href="#home" class="text-foreground/70 hover:text-primary transition-colors">
+                        Home
+                    </a>
+                    <a href="#about" class="text-foreground/70 hover:text-primary transition-colors">
+                        About
+                    </a>
+                    <a href="#contact" class="text-foreground/70 hover:text-primary transition-colors">
+                        Contact
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling function
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: "smooth" });
+                // Close mobile menu if open
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                    toggleMobileMenu();
+                }
+            }
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenuBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenuBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>';
+            }
+        }
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 20) {
+                header.classList.add('bg-background/80', 'backdrop-blur-md', 'border-b', 'border-border', 'shadow-lg');
+                header.classList.remove('bg-transparent');
+            } else {
+                header.classList.remove('bg-background/80', 'backdrop-blur-md', 'border-b', 'border-border', 'shadow-lg');
+                header.classList.add('bg-transparent');
+            }
+        });
+
+        // Form submission handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const message = formData.get('message');
+            
+            if (!name || !email || !message) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Simulate form submission
+            alert('Message sent successfully! I\'ll get back to you soon.');
+            event.target.reset();
+        }
+
+        // Add animation classes on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animation classes
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animate-fade-in-up, .animate-fade-in');
+            animatedElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
